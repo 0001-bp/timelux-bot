@@ -9,7 +9,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("7574772435:AAFjhtjv0CUYyE0rgRuo40FRVOLYN4Zm2QM")
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 dp.middleware.setup(LoggingMiddleware())
