@@ -15,7 +15,26 @@ def start(msg: Message):
         text="Открыть магазин",
         web_app=WebAppInfo(url="https://timeluxco-webapp.kirillpiter07.workers.dev/")
     ))
-    bot.send_message(msg.chat.id, "Добро пожаловать! Открыть WebApp:", reply_markup=kb)
+    bot.send_message(msg.chat.id, "Добро пожаловать! Откройте WebApp:", reply_markup=kb)
+
+
+@bot.message_handler(commands=['удалить_последний'])  # ВНЕ функции start()
+def delete_last_product(message):
+    try:
+        with open('products.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        if data:
+            deleted_product = data.pop()
+            with open('products.json', 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            bot.send_message(message.chat.id, f"🗑️ Удалён последний товар: {deleted_product['title']}")
+        else:
+            bot.send_message(message.chat.id, "📦 Список товаров пуст.")
+
+    except Exception as e:
+        bot.send_message(message.chat.id, f"⚠️ Ошибка при удалении: {e}")
+
 
 @bot.message_handler(content_types=['photo', 'video'])
 def handle_media(msg: Message):
